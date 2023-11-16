@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.springboot.cruddemo.Entity.student;
+
+import java.util.List;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
@@ -18,10 +21,34 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner ->{
 			//createstudent(studentDAO);
-			createMultiplestudent(studentDAO);
+			//createMultiplestudent(studentDAO);
+			//readstudent(studentDAO);
+			queryforstudent(studentDAO);
+
 		};
 
 }
+
+	private void queryforstudent(StudentDAO studentDAO) {
+		List<student> thestudent=studentDAO.findAll();
+		for (student stu:thestudent){
+			System.out.println(stu);
+		}
+	}
+
+	private void readstudent(StudentDAO studentDAO) {
+		//create student
+		student stu1= new student("cc","Moahmed","rb@gmail.com");
+		//save student
+		studentDAO.save(stu1);
+		//display the id of student
+		int theid= stu1.getId();
+		System.out.println(theid);
+		//find student
+		student findid=studentDAO.findbyid(theid);
+		//displaystudent
+		System.out.println(findid);
+	}
 
 	private void createMultiplestudent(StudentDAO studentDAO) {
 		student news1= new student("Rabab","Moahmed","rb@gmail.com");
